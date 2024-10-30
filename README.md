@@ -36,27 +36,27 @@ Namun hal tersebut akan menyebabkan <i>plain text</i> yang ditampilkan pada sisi
     # util.py
 
     def encrypt_ecb(pt, rkb, rk):
-    last_index = ""
-    if (len(pt) % 16 != 0):
-    	pt, last_index = pad(pt)
-    cipher_text = ""
-    num_blocks = len(pt) // 16
-    for i in range(num_blocks):
-    	block = pt[i * 16:(i + 1) * 16]
-    	encrypted_block = encrypt(block, rkb, rk)
-    	cipher_text += encrypted_block
-    return cipher_text, last_index
+        last_index = ""
+        if (len(pt) % 16 != 0):
+        	pt, last_index = pad(pt)
+        cipher_text = ""
+        num_blocks = len(pt) // 16
+        for i in range(num_blocks):
+        	block = pt[i * 16:(i + 1) * 16]
+        	encrypted_block = encrypt(block, rkb, rk)
+        	cipher_text += encrypted_block
+        return cipher_text, last_index
     ```
 
     ```py
     # util.py
 
     def pad(pt):
-    padding = ""
-    padding_len = 16 - (len(pt) % 16)
-    last_index = bin_to_hex(dec_to_bin(padding_len))
-    padding += "0" * padding_len
-    return (pt + padding), last_index
+        padding = ""
+        padding_len = 16 - (len(pt) % 16)
+        last_index = bin_to_hex(dec_to_bin(padding_len))
+        padding += "0" * padding_len
+        return (pt + padding), last_index
     ```
 
     Sebelum padding:
