@@ -1,6 +1,6 @@
 # Implementasi DES Client Server - Keamanan Informasi
 
-```json
+```
 Nama: Dewangga Dika Darmawan
 NRP: 5025211109
 Kelas: Keamanan Informasi B
@@ -24,11 +24,11 @@ Flow dari kode ini cukup sederhana yakni:
 1. Memasukkan input <i>plain text</i> pada server, lalu hasil enkripsinya dikirimkan ke client.
 2. Client menerima <i>chiper text</i> hasil enkripsi server dan mendekripsinya menjadi <i>plain text</i> dan hasilnya ditampilkan di terminal.
 
-Di mana tantangan sebenarnya adalah bagaimana melakukan enkripsi dan dekripsi untuk input yang lebih dari 64 bit. Solusi pada kode ini adalah menggunakan metode EBC (<i>Electronic Code Block</i>). Di mana plain text aakan dipecah menjadi blok-blok yang terpisah dan mengenkripsi setiap blok secara independen dengan kunci yang sama.
+Di mana tantangan sebenarnya adalah bagaimana melakukan enkripsi dan dekripsi untuk input yang lebih dari 64 bit. Solusi pada kode ini adalah menggunakan metode EBC (<i>Electronic Code Block</i>). Di mana <i>plain text</i> aakan dipecah menjadi blok-blok yang terpisah dan mengenkripsi setiap blok secara independen dengan kunci yang sama.
 
-Pada kode ini blok kode akan berisi sebanyak 16 karakter (64 bit). Misalnya, plain text berisi 20 karakter (80 bit), akan dibagi 2 blok yaitu 16 dan 4 karakter. Namun, pada DES proses enkripsi dan dekripsi harus berisi 16 karakter (64 bit). Oleh karena itu, blok yang kekurangan karakter akan ditambahkan karakter `0` sebanyak yang dibutuhkan.
+Pada kode ini blok kode akan berisi sebanyak 16 karakter (64 bit). Misalnya, <i>plain text</i> berisi 20 karakter (80 bit), akan dibagi 2 blok yaitu 16 dan 4 karakter. Namun, pada DES proses enkripsi dan dekripsi harus berisi 16 karakter (64 bit). Oleh karena itu, blok yang kekurangan karakter akan ditambahkan karakter `0` sebanyak yang dibutuhkan.
 
-Namun hal tersebut akan menyebabkan plain text yang ditampilkan pada sisi client berbeda dengan yang diinputkan. Solusi dari masalah tersebut yaitu menambahkan carry dibelakang chiper_text yang dikirimkan. Begini prosesnya:
+Namun hal tersebut akan menyebabkan <i>plain text</i> yang ditampilkan pada sisi client berbeda dengan yang diinputkan. Solusi dari masalah tersebut yaitu menambahkan carry dibelakang <i>chiper text</i> yang dikirimkan. Begini prosesnya:
 
 1.  Dimasukkan input sebanyak 20 karakter (80 bit). Sebelum dibagi menjadi blok-blok, apabila input bukan kelipatan 16 maka akan ditambahkan padding terlebih dahulu menggunakan fungsi `pad` di mana fungsi tersebut dipanggil pada fungsi `encrypt_ecb`
 
@@ -105,7 +105,7 @@ Namun hal tersebut akan menyebabkan plain text yang ditampilkan pada sisi client
         return hex
     ```
 
-3.  Variabel `last_index` lalu akan digabungkan dengan plain text yang sudah menjadi chiper text lalu dikirimkan ke sisi client.
+3.  Variabel `last_index` lalu akan digabungkan dengan <i>plain text</i> yang sudah menjadi <i>chiper text</i> lalu dikirimkan ke sisi client.
 
     ```py
     # socket_server.py
@@ -131,9 +131,9 @@ Namun hal tersebut akan menyebabkan plain text yang ditampilkan pada sisi client
         key = "AABBCCDDEEFF1122"
 
         if(len(data) % 16 != 0):
-            chiper_text = data[:-1]
+            <i>chiper text</i> = data[:-1]
         else:
-            chiper_text = data
+            <i>chiper text</i> = data
     ...
     ```
 
@@ -147,7 +147,7 @@ Namun hal tersebut akan menyebabkan plain text yang ditampilkan pada sisi client
     rk_rev = rk[::-1]
     rkb_rev = rkb[::-1]
 
-    plain_text = bin_to_hex(decrypt_ecb(chiper_text, rkb_rev, rk_rev))
+    plain_text = bin_to_hex(decrypt_ecb(<i>chiper text</i>, rkb_rev, rk_rev))
     ...
     ```
 
@@ -168,30 +168,38 @@ Namun hal tersebut akan menyebabkan plain text yang ditampilkan pada sisi client
 
 1. Input 16 karakter
    **server**
+   
    ![input 16 - server](https://cdn.discordapp.com/attachments/702797283795927123/1301091721693626438/input_16_-_server.png?ex=67233797&is=6721e617&hm=bc3e4dac3274354fb6a2809330258245fa64a571695d2c4c195ebda3d1a640a7&)
 
    **client**
+   <br>
    ![input 16 - client](https://cdn.discordapp.com/attachments/702797283795927123/1301091722016849991/input_16_-_client.png?ex=67233797&is=6721e617&hm=f888487ac51d36b234d1bb3d20554501ef5a9c7a27d357677a357cf4103df046&)
 
 2. Input 20 karakter
    **server**
+   <br>
    ![input 20 - server](https://cdn.discordapp.com/attachments/702797283795927123/1301091754891673600/input_20_-_server.png?ex=6723379f&is=6721e61f&hm=e3943e2d1c7e0c544724b1fa60f6b3be04e337c19fd6c57882943d1302790217&)
 
    **client**
+   <br>
    ![input 20 - client](https://cdn.discordapp.com/attachments/702797283795927123/1301091755281612840/input_20_-_client.png?ex=6723379f&is=6721e61f&hm=e4d67b33d0a0e5ae6d9a7752cc5c07499c723296cdf8ee78f9cdbb834c18245a&)
 
 3. Input 32 karakter
    **server**
+   <br>
    ![input 32 - server](https://cdn.discordapp.com/attachments/702797283795927123/1301091772335652875/input_32_-_server.png?ex=672337a3&is=6721e623&hm=40fca859e5ab2d706499f26cbc0a30cbb74d7bcbe6137b4930dd688758e5f9d1&)
 
    **client**
+   <br>
    ![input 32 - client](https://cdn.discordapp.com/attachments/702797283795927123/1301091772574863410/input_32_-_client.png?ex=672337a3&is=6721e623&hm=18ebcd682b7c59ae84b2cc342472074646ec5b70fbdaf04cdff917b9cd46c89d&)
 
 4. Input `bye` sebagai tanda koneksi ditutup
    **server**
+   <br>
    ![input 16 - server](https://cdn.discordapp.com/attachments/702797283795927123/1301091793433264159/input_bye_-_server.png?ex=672337a8&is=6721e628&hm=be8ae40f484dab575eb90574c9c69da604e3660978ea6116f5b4e85f960dbd7f&)
 
    **client**
+   <br>
    ![input 16 - server](https://cdn.discordapp.com/attachments/702797283795927123/1301091793735122944/input_bye_-_client.png?ex=672337a8&is=6721e628&hm=0aa794422c6de75474cfbe7771e4b96fa4e4dca3bb8ad9f35ff6aab72f5b4791&)
 
 ```js
